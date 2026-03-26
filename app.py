@@ -1,255 +1,96 @@
-{
- "cells": [
-  {
-   "cell_type": "code",
-   "execution_count": 5,
-   "id": "93aa2f02-b571-4aa2-90ab-8c647f75ddc2",
-   "metadata": {},
-   "outputs": [
-    {
-     "name": "stderr",
-     "output_type": "stream",
-     "text": [
-      "2026-03-25 22:04:01.332 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-03-25 22:04:01.334 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-03-25 22:04:01.336 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-03-25 22:04:01.338 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-03-25 22:04:01.339 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-03-25 22:04:01.341 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-03-25 22:04:01.342 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-03-25 22:04:01.345 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-03-25 22:04:01.346 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-03-25 22:04:01.346 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-03-25 22:04:01.348 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-03-25 22:04:01.348 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-03-25 22:04:01.349 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-03-25 22:04:01.349 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-03-25 22:04:01.350 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-03-25 22:04:01.350 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-03-25 22:04:01.351 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-03-25 22:04:01.351 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-03-25 22:04:01.352 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-03-25 22:04:01.352 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-03-25 22:04:01.353 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-03-25 22:04:01.354 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-03-25 22:04:01.354 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-03-25 22:04:01.355 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-03-25 22:04:01.355 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-03-25 22:04:01.356 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-03-25 22:04:01.357 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-03-25 22:04:01.359 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-03-25 22:04:01.360 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-03-25 22:04:01.360 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-03-25 22:04:01.361 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-03-25 22:04:01.362 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-03-25 22:04:01.362 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-03-25 22:04:01.363 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-03-25 22:04:01.363 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-03-25 22:04:01.364 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-03-25 22:04:01.364 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-03-25 22:04:01.365 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-03-25 22:04:01.365 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-03-25 22:04:01.366 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-03-25 22:04:01.366 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-03-25 22:04:01.367 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-03-25 22:04:01.368 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-03-25 22:04:01.368 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-03-25 22:04:01.369 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-03-25 22:04:01.369 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-03-25 22:04:01.370 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-03-25 22:04:01.370 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-03-25 22:04:01.371 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-03-25 22:04:01.371 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-03-25 22:04:01.372 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-03-25 22:04:01.373 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-03-25 22:04:01.374 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-03-25 22:04:01.374 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-03-25 22:04:01.375 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-03-25 22:04:01.376 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-03-25 22:04:01.376 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-03-25 22:04:01.377 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-03-25 22:04:01.377 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-03-25 22:04:01.378 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-03-25 22:04:01.379 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-03-25 22:04:01.379 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-03-25 22:04:01.380 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-03-25 22:04:01.380 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-03-25 22:04:01.381 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-03-25 22:04:01.382 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-03-25 22:04:01.382 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-03-25 22:04:01.383 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-03-25 22:04:01.383 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-03-25 22:04:01.384 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-03-25 22:04:01.385 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-03-25 22:04:01.386 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-03-25 22:04:01.387 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-03-25 22:04:01.387 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-03-25 22:04:01.388 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-03-25 22:04:01.389 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-03-25 22:04:01.389 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-03-25 22:04:01.390 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-03-25 22:04:01.390 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-03-25 22:04:01.391 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-03-25 22:04:01.392 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-03-25 22:04:01.392 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-03-25 22:04:01.393 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-03-25 22:04:01.393 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-03-25 22:04:01.394 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-03-25 22:04:01.394 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-03-25 22:04:01.395 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-03-25 22:04:01.401 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-03-25 22:04:01.402 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-03-25 22:04:01.413 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-03-25 22:04:01.414 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-03-25 22:04:01.416 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-03-25 22:04:01.416 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-03-25 22:04:01.417 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-03-25 22:04:01.418 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-03-25 22:04:01.424 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-03-25 22:04:01.425 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-03-25 22:04:01.426 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-03-25 22:04:01.426 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-03-25 22:04:01.427 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n"
-     ]
-    },
-    {
-     "data": {
-      "text/plain": [
-       "DeltaGenerator()"
-      ]
-     },
-     "execution_count": 5,
-     "metadata": {},
-     "output_type": "execute_result"
+import streamlit as st
+import pandas as pd
+import joblib
+import numpy as np
+
+# -------------------------------
+# LOAD MODELS
+# -------------------------------
+stack_model = joblib.load("stack_model.pkl")
+sem_model = joblib.load("sem_model.pkl")
+
+# -------------------------------
+# PAGE CONFIG
+# -------------------------------
+st.set_page_config(
+    page_title="Sales Performance & SEM Predictor",
+    layout="wide"
+)
+
+# -------------------------------
+# TITLE
+# -------------------------------
+st.title("📊 Sales Performance Prediction System")
+st.markdown("Predict sales performance using CRM & behavioral constructs using ML and SEM models.")
+
+# -------------------------------
+# SIDEBAR INPUT
+# -------------------------------
+st.sidebar.header("Input Features")
+
+def user_input():
+    data = {
+        "Self_Efficacy": st.sidebar.slider("Self Efficacy (SE)", 1.0, 5.0, 3.0),
+        "Playfulness": st.sidebar.slider("Playfulness (P)", 1.0, 5.0, 3.0),
+        "Social_Norms": st.sidebar.slider("Social Norms (SN)", 1.0, 5.0, 3.0),
+        "Voluntariness": st.sidebar.slider("Voluntariness (VN)", 1.0, 5.0, 3.0),
+        "User_Involvement": st.sidebar.slider("User Involvement (UI)", 1.0, 5.0, 3.0),
+        "User_Participation": st.sidebar.slider("User Participation (UP)", 1.0, 5.0, 3.0),
+        "Management_Support": st.sidebar.slider("Management Support (MS)", 1.0, 5.0, 3.0),
+        "Relative_Advantage": st.sidebar.slider("Relative Advantage (RAD)", 1.0, 5.0, 3.0),
+        "Results_Demonstrability": st.sidebar.slider("Results Demonstrability (RD)", 1.0, 5.0, 3.0),
+        "Image": st.sidebar.slider("Image (I)", 1.0, 5.0, 3.0),
+        "Compatibility": st.sidebar.slider("Compatibility (C)", 1.0, 5.0, 3.0),
+        "Professional_Fit": st.sidebar.slider("Professional Fit (PF)", 1.0, 5.0, 3.0),
+        "Complexity": st.sidebar.slider("Complexity (CLX)", 1.0, 5.0, 3.0),
+        "Job_Fit": st.sidebar.slider("Job Fit (JF)", 1.0, 5.0, 3.0),
+        "Visibility": st.sidebar.slider("Visibility (V)", 1.0, 5.0, 3.0),
+        "CRM": st.sidebar.slider("CRM", 1.0, 5.0, 3.0)
     }
-   ],
-   "source": [
-    "import streamlit as st\n",
-    "import pandas as pd\n",
-    "import joblib\n",
-    "import numpy as np\n",
-    "\n",
-    "# -------------------------------\n",
-    "# LOAD MODELS\n",
-    "# -------------------------------\n",
-    "stack_model = joblib.load(\"stack_model.pkl\")\n",
-    "sem_model = joblib.load(\"sem_model.pkl\")\n",
-    "\n",
-    "# -------------------------------\n",
-    "# PAGE CONFIG\n",
-    "# -------------------------------\n",
-    "st.set_page_config(\n",
-    "    page_title=\"Sales Performance & SEM Predictor\",\n",
-    "    layout=\"wide\"\n",
-    ")\n",
-    "\n",
-    "# -------------------------------\n",
-    "# TITLE\n",
-    "# -------------------------------\n",
-    "st.title(\"📊 Sales Performance Prediction System\")\n",
-    "st.markdown(\"Predict sales performance using CRM & behavioral constructs using ML and SEM models.\")\n",
-    "\n",
-    "# -------------------------------\n",
-    "# SIDEBAR INPUT\n",
-    "# -------------------------------\n",
-    "st.sidebar.header(\"Input Features\")\n",
-    "\n",
-    "def user_input():\n",
-    "    data = {\n",
-    "        \"Self_Efficacy\": st.sidebar.slider(\"Self Efficacy (SE)\", 1.0, 5.0, 3.0),\n",
-    "        \"Playfulness\": st.sidebar.slider(\"Playfulness (P)\", 1.0, 5.0, 3.0),\n",
-    "        \"Social_Norms\": st.sidebar.slider(\"Social Norms (SN)\", 1.0, 5.0, 3.0),\n",
-    "        \"Voluntariness\": st.sidebar.slider(\"Voluntariness (VN)\", 1.0, 5.0, 3.0),\n",
-    "        \"User_Involvement\": st.sidebar.slider(\"User Involvement (UI)\", 1.0, 5.0, 3.0),\n",
-    "        \"User_Participation\": st.sidebar.slider(\"User Participation (UP)\", 1.0, 5.0, 3.0),\n",
-    "        \"Management_Support\": st.sidebar.slider(\"Management Support (MS)\", 1.0, 5.0, 3.0),\n",
-    "        \"Relative_Advantage\": st.sidebar.slider(\"Relative Advantage (RAD)\", 1.0, 5.0, 3.0),\n",
-    "        \"Results_Demonstrability\": st.sidebar.slider(\"Results Demonstrability (RD)\", 1.0, 5.0, 3.0),\n",
-    "        \"Image\": st.sidebar.slider(\"Image (I)\", 1.0, 5.0, 3.0),\n",
-    "        \"Compatibility\": st.sidebar.slider(\"Compatibility (C)\", 1.0, 5.0, 3.0),\n",
-    "        \"Professional_Fit\": st.sidebar.slider(\"Professional Fit (PF)\", 1.0, 5.0, 3.0),\n",
-    "        \"Complexity\": st.sidebar.slider(\"Complexity (CLX)\", 1.0, 5.0, 3.0),\n",
-    "        \"Job_Fit\": st.sidebar.slider(\"Job Fit (JF)\", 1.0, 5.0, 3.0),\n",
-    "        \"Visibility\": st.sidebar.slider(\"Visibility (V)\", 1.0, 5.0, 3.0),\n",
-    "        \"CRM\": st.sidebar.slider(\"CRM\", 1.0, 5.0, 3.0)\n",
-    "    }\n",
-    "\n",
-    "    return pd.DataFrame([data])\n",
-    "\n",
-    "input_df = user_input()\n",
-    "\n",
-    "# -------------------------------\n",
-    "# DISPLAY INPUT\n",
-    "# -------------------------------\n",
-    "st.subheader(\"📥 Input Data\")\n",
-    "st.write(input_df)\n",
-    "\n",
-    "# -------------------------------\n",
-    "# PREDICTIONS\n",
-    "# -------------------------------\n",
-    "if st.button(\"Predict\"):\n",
-    "\n",
-    "    # -------- Stacking ML Model --------\n",
-    "    st.subheader(\"🟢 Stacking Model Prediction\")\n",
-    "    prediction = stack_model.predict(input_df)\n",
-    "    confidence = (\n",
-    "        np.max(stack_model.predict_proba(input_df)) \n",
-    "        if hasattr(stack_model, \"predict_proba\") else \"N/A\"\n",
-    "    )\n",
-    "    st.success(f\"Predicted Class: {prediction[0]}\")\n",
-    "    st.info(f\"Confidence: {confidence}\")\n",
-    "\n",
-    "    if hasattr(stack_model, \"feature_importances_\"):\n",
-    "        st.subheader(\"Feature Importance (Stacking Model)\")\n",
-    "        st.bar_chart(stack_model.feature_importances_)\n",
-    "\n",
-    "    # -------- SEM Model --------\n",
-    "    st.subheader(\"🔵 SEM Model Output\")\n",
-    "    try:\n",
-    "        # Display SEM path estimates / latent scores\n",
-    "        sem_scores = sem_model.predict(input_df)\n",
-    "        st.write(sem_scores)\n",
-    "    except:\n",
-    "        try:\n",
-    "            st.dataframe(sem_model.inspect())\n",
-    "        except:\n",
-    "            st.warning(\"SEM prediction/inspection not available — check SEM library API.\")\n",
-    "\n",
-    "# -------------------------------\n",
-    "# FOOTER\n",
-    "# -------------------------------\n",
-    "st.markdown(\"---\")\n",
-    "st.caption(\"Models: Stacking Classifier & SEM | Built for CRM & Sales Analysis\")"
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": null,
-   "id": "e2191c93-9774-4b90-b139-ce0375e7666d",
-   "metadata": {},
-   "outputs": [],
-   "source": []
-  }
- ],
- "metadata": {
-  "kernelspec": {
-   "display_name": "Python 3 (ipykernel)",
-   "language": "python",
-   "name": "python3"
-  },
-  "language_info": {
-   "codemirror_mode": {
-    "name": "ipython",
-    "version": 3
-   },
-   "file_extension": ".py",
-   "mimetype": "text/x-python",
-   "name": "python",
-   "nbconvert_exporter": "python",
-   "pygments_lexer": "ipython3",
-   "version": "3.13.5"
-  }
- },
- "nbformat": 4,
- "nbformat_minor": 5
-}
+
+    return pd.DataFrame([data])
+
+input_df = user_input()
+
+# -------------------------------
+# DISPLAY INPUT
+# -------------------------------
+st.subheader("📥 Input Data")
+st.write(input_df)
+
+# -------------------------------
+# PREDICTIONS
+# -------------------------------
+if st.button("Predict"):
+
+    # -------- Stacking ML Model --------
+    st.subheader("🟢 Stacking Model Prediction")
+    prediction = stack_model.predict(input_df)
+    confidence = (
+        np.max(stack_model.predict_proba(input_df)) 
+        if hasattr(stack_model, "predict_proba") else "N/A"
+    )
+    st.success(f"Predicted Class: {prediction[0]}")
+    st.info(f"Confidence: {confidence}")
+
+    if hasattr(stack_model, "feature_importances_"):
+        st.subheader("Feature Importance (Stacking Model)")
+        st.bar_chart(stack_model.feature_importances_)
+
+    # -------- SEM Model --------
+    st.subheader("🔵 SEM Model Output")
+    try:
+        # Display SEM path estimates / latent scores
+        sem_scores = sem_model.predict(input_df)
+        st.write(sem_scores)
+    except:
+        try:
+            st.dataframe(sem_model.inspect())
+        except:
+            st.warning("SEM prediction/inspection not available — check SEM library API.")
+
+# -------------------------------
+# FOOTER
+# -------------------------------
+st.markdown("---")
+st.caption("Models: Stacking Classifier & SEM | Built for CRM & Sales Analysis")
