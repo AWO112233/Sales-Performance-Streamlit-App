@@ -43,7 +43,7 @@ h1, h2, h3 {
 # -------------------------------
 # HEADER
 # -------------------------------
-st.title("🚀 AI Sales Performance Intelligence")
+st.title("🚀 ASDA Sales Performance Intelligence")
 st.caption("Machine Learning + SEM powered decision system")
 
 # -------------------------------
