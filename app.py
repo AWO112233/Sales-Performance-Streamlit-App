@@ -7,10 +7,7 @@ import matplotlib.pyplot as plt
 # -------------------------------
 # CONFIG
 # -------------------------------
-st.set_page_config(
-    page_title="AI Sales Intelligence",
-    layout="wide"
-)
+st.set_page_config(page_title="BDA Sales Performance Artefact", layout="wide")
 
 # -------------------------------
 # LOAD MODELS
@@ -19,49 +16,31 @@ stack_model = joblib.load("stack_model.pkl")
 sem_model = joblib.load("sem_model.pkl")
 
 # -------------------------------
-# CUSTOM STYLE (THIS IS THE MAGIC)
-# -------------------------------
-st.markdown("""
-<style>
-.main {
-    background-color: #0E1117;
-}
-.block-container {
-    padding-top: 2rem;
-}
-h1, h2, h3 {
-    color: #FFFFFF;
-}
-.metric-container {
-    background-color: #1C1F26;
-    padding: 15px;
-    border-radius: 12px;
-}
-</style>
-""", unsafe_allow_html=True)
-
-# -------------------------------
 # HEADER
 # -------------------------------
-st.title("🚀 ASDA Sales Performance Intelligence")
-st.caption("Machine Learning + SEM powered decision system")
+st.title("📊 Big Data Analytics & Sales Performance System")
+st.markdown("""
+This system operationalises the research model by combining:
+- **Machine Learning (Prediction)**
+- **Structural Equation Modelling (Explanation)**
+- **Scenario Simulation (Managerial Insight)**
+
+It directly supports the study objectives on BDA, CRM, and Sales Performance.
+""")
 
 # -------------------------------
-# LAYOUT: INPUT LEFT | OUTPUT RIGHT
+# LAYOUT
 # -------------------------------
 left, right = st.columns([1, 2])
 
 # ===============================
-# INPUT PANEL
+# INPUT SECTION
 # ===============================
 with left:
 
-    st.subheader("🎯 Input Variables")
+    st.subheader("📥 Input Variables")
 
-    preset = st.selectbox(
-        "Quick Scenario",
-        ["Custom", "Low", "Average", "High"]
-    )
+    preset = st.selectbox("Scenario Preset", ["Custom", "Low", "Average", "High"])
 
     def preset_val(p):
         return {"Low": 2.0, "Average": 3.0, "High": 4.5}.get(p, 3.0)
@@ -91,44 +70,53 @@ with left:
     }
 
     input_df = pd.DataFrame([input_dict])
+    st.dataframe(input_df)
 
-    st.markdown("### 📥 Input Summary")
-    st.dataframe(input_df, use_container_width=True)
-
-    run = st.button("🚀 Run Analysis", use_container_width=True)
+    run = st.button("🚀 Run Analysis")
 
 # ===============================
-# OUTPUT PANEL
+# OUTPUT SECTION
 # ===============================
 with right:
 
     if run:
 
-        st.subheader("📊 Prediction Overview")
+        st.subheader("📊 Model Prediction")
 
         prediction = stack_model.predict(input_df)[0]
-
         probs = stack_model.predict_proba(input_df)[0]
-        confidence = np.max(probs)
 
         col1, col2, col3 = st.columns(3)
+        col1.metric("Predicted Class", prediction)
+        col2.metric("Probability (High Performance)", f"{probs[1]:.2f}")
+        col3.metric("Confidence", f"{np.max(probs):.2f}")
 
-        col1.metric("Prediction", prediction)
-        col2.metric("Confidence", f"{confidence:.2f}")
-        col3.metric("Risk Level", "High" if probs[1] > 0.7 else "Moderate")
+        # -------------------------------
+        # INTERPRETATION (VERY IMPORTANT)
+        # -------------------------------
+        st.subheader("🧠 Interpretation")
 
-        st.markdown("---")
+        if probs[1] > 0.7:
+            st.success("High likelihood of strong sales performance. This aligns with strong CRM and organisational support.")
+        elif probs[1] > 0.5:
+            st.warning("Moderate performance expected. Improvements in CRM and Job Fit may enhance outcomes.")
+        else:
+            st.error("Low performance predicted. Results suggest weak organisational or CRM capability.")
 
-        # ---------------- PROBABILITY VISUAL ----------------
+        # -------------------------------
+        # PROBABILITY VISUAL
+        # -------------------------------
         st.subheader("📈 Probability Distribution")
 
         fig, ax = plt.subplots()
-        ax.bar(["Low Performance", "High Performance"], probs)
+        ax.bar(["Low", "High"], probs)
         ax.set_ylabel("Probability")
         st.pyplot(fig)
 
-        # ---------------- FEATURE IMPORTANCE ----------------
-        st.subheader("🧠 Key Drivers")
+        # -------------------------------
+        # FEATURE IMPORTANCE
+        # -------------------------------
+        st.subheader("📊 Key Drivers (ML)")
 
         try:
             importances = stack_model.named_estimators_['rf'].feature_importances_
@@ -139,34 +127,51 @@ with right:
 
             st.bar_chart(feat_df.set_index("Feature"))
 
-        except:
-            st.info("Feature importance not available")
+            top_feats = feat_df.head(3)["Feature"].tolist()
+            st.info(f"Top drivers influencing prediction: {', '.join(top_feats)}")
 
-        # ---------------- SEM ----------------
-        st.subheader("🔵 SEM Output")
+        except:
+            st.warning("Feature importance not available for stacking model.")
+
+        # -------------------------------
+        # SEM OUTPUT (THEORY VALIDATION)
+        # -------------------------------
+        st.subheader("🔵 SEM Output (Theoretical Model)")
 
         try:
             sem_out = sem_model.predict(input_df)
             st.dataframe(sem_out)
-        except:
-            try:
-                st.dataframe(sem_model.inspect())
-            except:
-                st.warning("SEM output unavailable")
 
-        # ---------------- SCENARIO ----------------
-        st.subheader("🔬 Impact Simulation")
+            st.markdown("""
+            This reflects the structural model results, where CRM and organisational variables 
+            are the strongest predictors of sales performance.
+            """)
+
+        except:
+            st.warning("SEM output unavailable")
+
+        # -------------------------------
+        # SCENARIO ANALYSIS
+        # -------------------------------
+        st.subheader("🔬 Scenario Analysis")
+
+        feature = st.selectbox("Adjust Variable", input_df.columns)
 
         scenario = input_df.copy()
-        scenario["CRM"] += 1
+        scenario[feature] += 1
 
-        base = stack_model.predict_proba(input_df)[0][1]
-        improved = stack_model.predict_proba(scenario)[0][1]
+        base = probs[1]
+        new = stack_model.predict_proba(scenario)[0][1]
 
-        st.write(f"📌 Increasing CRM by +1 changes probability from **{base:.2f} → {improved:.2f}**")
+        st.write(f"Changing **{feature}** by +1 changes probability from **{base:.2f} → {new:.2f}**")
+
+        st.markdown("""
+        This demonstrates how managerial actions (e.g., improving CRM or Management Support)
+        can influence predicted sales performance outcomes.
+        """)
 
 # -------------------------------
 # FOOTER
 # -------------------------------
 st.markdown("---")
-st.caption("AI Sales Intelligence System | Built for Strategic Decision-Making")
+st.caption("Research Artefact: BDA, CRM, and Sales Performance | ML + SEM Integrated Framework")
