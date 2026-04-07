@@ -5,192 +5,168 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 # -------------------------------
+# CONFIG
+# -------------------------------
+st.set_page_config(
+    page_title="AI Sales Intelligence",
+    layout="wide"
+)
+
+# -------------------------------
 # LOAD MODELS
 # -------------------------------
 stack_model = joblib.load("stack_model.pkl")
 sem_model = joblib.load("sem_model.pkl")
 
 # -------------------------------
-# PAGE CONFIG
+# CUSTOM STYLE (THIS IS THE MAGIC)
 # -------------------------------
-st.set_page_config(
-    page_title="AI Sales Performance Intelligence",
-    layout="wide"
-)
+st.markdown("""
+<style>
+.main {
+    background-color: #0E1117;
+}
+.block-container {
+    padding-top: 2rem;
+}
+h1, h2, h3 {
+    color: #FFFFFF;
+}
+.metric-container {
+    background-color: #1C1F26;
+    padding: 15px;
+    border-radius: 12px;
+}
+</style>
+""", unsafe_allow_html=True)
 
 # -------------------------------
-# TITLE
+# HEADER
 # -------------------------------
-st.title("🚀 AI Sales Performance Intelligence System")
-st.markdown("Advanced analytics platform combining **Machine Learning + SEM insights**")
+st.title("🚀 AI Sales Performance Intelligence")
+st.caption("Machine Learning + SEM powered decision system")
 
 # -------------------------------
-# SIDEBAR
+# LAYOUT: INPUT LEFT | OUTPUT RIGHT
 # -------------------------------
-st.sidebar.header("⚙️ Input Configuration")
+left, right = st.columns([1, 2])
 
-preset = st.sidebar.selectbox(
-    "Select Scenario",
-    ["Custom", "Low Performance", "Average", "High Performance"]
-)
+# ===============================
+# INPUT PANEL
+# ===============================
+with left:
 
-def get_preset_values(preset):
-    if preset == "Low Performance":
-        return 2.0
-    elif preset == "High Performance":
-        return 4.5
-    else:
-        return 3.0
+    st.subheader("🎯 Input Variables")
 
-default_val = get_preset_values(preset)
+    preset = st.selectbox(
+        "Quick Scenario",
+        ["Custom", "Low", "Average", "High"]
+    )
 
-def user_input():
-    data = {
-        "Self_Efficacy": st.sidebar.slider("Self Efficacy", 1.0, 5.0, default_val),
-        "Playfulness": st.sidebar.slider("Playfulness", 1.0, 5.0, default_val),
-        "Social_Norms": st.sidebar.slider("Social Norms", 1.0, 5.0, default_val),
-        "Voluntariness": st.sidebar.slider("Voluntariness", 1.0, 5.0, default_val),
-        "User_Involvement": st.sidebar.slider("User Involvement", 1.0, 5.0, default_val),
-        "User_Participation": st.sidebar.slider("User Participation", 1.0, 5.0, default_val),
-        "Management_Support": st.sidebar.slider("Management Support", 1.0, 5.0, default_val),
-        "Relative_Advantage": st.sidebar.slider("Relative Advantage", 1.0, 5.0, default_val),
-        "Results_Demonstrability": st.sidebar.slider("Results Demonstrability", 1.0, 5.0, default_val),
-        "Image": st.sidebar.slider("Image", 1.0, 5.0, default_val),
-        "Compatibility": st.sidebar.slider("Compatibility", 1.0, 5.0, default_val),
-        "Professional_Fit": st.sidebar.slider("Professional Fit", 1.0, 5.0, default_val),
-        "Complexity": st.sidebar.slider("Complexity", 1.0, 5.0, default_val),
-        "Job_Fit": st.sidebar.slider("Job Fit", 1.0, 5.0, default_val),
-        "Visibility": st.sidebar.slider("Visibility", 1.0, 5.0, default_val),
-        "CRM": st.sidebar.slider("CRM", 1.0, 5.0, default_val)
+    def preset_val(p):
+        return {"Low": 2.0, "Average": 3.0, "High": 4.5}.get(p, 3.0)
+
+    d = preset_val(preset)
+
+    def slider(label):
+        return st.slider(label, 1.0, 5.0, d)
+
+    input_dict = {
+        "Self_Efficacy": slider("Self Efficacy"),
+        "Playfulness": slider("Playfulness"),
+        "Social_Norms": slider("Social Norms"),
+        "Voluntariness": slider("Voluntariness"),
+        "User_Involvement": slider("User Involvement"),
+        "User_Participation": slider("User Participation"),
+        "Management_Support": slider("Management Support"),
+        "Relative_Advantage": slider("Relative Advantage"),
+        "Results_Demonstrability": slider("Results Demonstrability"),
+        "Image": slider("Image"),
+        "Compatibility": slider("Compatibility"),
+        "Professional_Fit": slider("Professional Fit"),
+        "Complexity": slider("Complexity"),
+        "Job_Fit": slider("Job Fit"),
+        "Visibility": slider("Visibility"),
+        "CRM": slider("CRM")
     }
-    return pd.DataFrame([data])
 
-input_df = user_input()
+    input_df = pd.DataFrame([input_dict])
 
-# -------------------------------
-# MAIN TABS
-# -------------------------------
-tab1, tab2, tab3 = st.tabs(["📊 Prediction", "📈 Insights", "🔬 Scenario Analysis"])
-
-# ===============================
-# TAB 1: PREDICTION
-# ===============================
-with tab1:
-
-    st.subheader("📥 Input Overview")
+    st.markdown("### 📥 Input Summary")
     st.dataframe(input_df, use_container_width=True)
 
-    if st.button("🚀 Run Prediction"):
+    run = st.button("🚀 Run Analysis", use_container_width=True)
+
+# ===============================
+# OUTPUT PANEL
+# ===============================
+with right:
+
+    if run:
+
+        st.subheader("📊 Prediction Overview")
 
         prediction = stack_model.predict(input_df)[0]
 
-        if hasattr(stack_model, "predict_proba"):
-            probs = stack_model.predict_proba(input_df)[0]
-            confidence = np.max(probs)
-        else:
-            probs = None
-            confidence = None
+        probs = stack_model.predict_proba(input_df)[0]
+        confidence = np.max(probs)
 
-        # ---------------- KPI CARDS ----------------
         col1, col2, col3 = st.columns(3)
 
-        col1.metric("Predicted Class", prediction)
-        col2.metric("Confidence", f"{confidence:.2f}" if confidence else "N/A")
-        col3.metric("Model Used", "Stacking Ensemble")
+        col1.metric("Prediction", prediction)
+        col2.metric("Confidence", f"{confidence:.2f}")
+        col3.metric("Risk Level", "High" if probs[1] > 0.7 else "Moderate")
 
-        # ---------------- Probability Chart ----------------
-        if probs is not None:
-            st.subheader("📊 Prediction Probabilities")
+        st.markdown("---")
 
-            fig, ax = plt.subplots()
-            ax.bar(["Class 0", "Class 1"], probs)
-            ax.set_title("Prediction Probability Distribution")
-            st.pyplot(fig)
+        # ---------------- PROBABILITY VISUAL ----------------
+        st.subheader("📈 Probability Distribution")
 
-        # ---------------- SEM OUTPUT ----------------
-        st.subheader("🔵 SEM Insights")
+        fig, ax = plt.subplots()
+        ax.bar(["Low Performance", "High Performance"], probs)
+        ax.set_ylabel("Probability")
+        st.pyplot(fig)
+
+        # ---------------- FEATURE IMPORTANCE ----------------
+        st.subheader("🧠 Key Drivers")
+
         try:
-            sem_output = sem_model.predict(input_df)
-            st.dataframe(sem_output)
+            importances = stack_model.named_estimators_['rf'].feature_importances_
+            feat_df = pd.DataFrame({
+                "Feature": input_df.columns,
+                "Importance": importances
+            }).sort_values(by="Importance", ascending=False)
+
+            st.bar_chart(feat_df.set_index("Feature"))
+
+        except:
+            st.info("Feature importance not available")
+
+        # ---------------- SEM ----------------
+        st.subheader("🔵 SEM Output")
+
+        try:
+            sem_out = sem_model.predict(input_df)
+            st.dataframe(sem_out)
         except:
             try:
                 st.dataframe(sem_model.inspect())
             except:
-                st.warning("SEM output not available")
+                st.warning("SEM output unavailable")
 
-# ===============================
-# TAB 2: FEATURE INSIGHTS
-# ===============================
-with tab2:
+        # ---------------- SCENARIO ----------------
+        st.subheader("🔬 Impact Simulation")
 
-    st.subheader("📈 Feature Importance")
+        scenario = input_df.copy()
+        scenario["CRM"] += 1
 
-    try:
-        importances = stack_model.named_estimators_['rf'].feature_importances_
-        features = input_df.columns
+        base = stack_model.predict_proba(input_df)[0][1]
+        improved = stack_model.predict_proba(scenario)[0][1]
 
-        feat_df = pd.DataFrame({
-            "Feature": features,
-            "Importance": importances
-        }).sort_values(by="Importance", ascending=False)
-
-        st.bar_chart(feat_df.set_index("Feature"))
-
-    except:
-        st.info("Feature importance not directly available for stacking model.")
-
-    st.subheader("🧠 Interpretation")
-    st.markdown("""
-    - High-impact variables (e.g., CRM, Job Fit) drive predictions  
-    - Organizational factors dominate over technical ones  
-    - Supports SEM findings → consistency across methods  
-    """)
-
-# ===============================
-# TAB 3: SCENARIO ANALYSIS
-# ===============================
-with tab3:
-
-    st.subheader("🔬 What-If Scenario Analysis")
-
-    scenario_1 = input_df.copy()
-    scenario_2 = input_df.copy()
-
-    scenario_2["CRM"] += 1
-    scenario_2["Management_Support"] += 1
-
-    pred1 = stack_model.predict_proba(scenario_1)[0][1]
-    pred2 = stack_model.predict_proba(scenario_2)[0][1]
-
-    comparison = pd.DataFrame({
-        "Scenario": ["Current", "Improved CRM + Management"],
-        "Probability of High Performance": [pred1, pred2]
-    })
-
-    st.dataframe(comparison)
-
-    fig, ax = plt.subplots()
-    ax.bar(comparison["Scenario"], comparison["Probability of High Performance"])
-    ax.set_title("Scenario Impact Comparison")
-    st.pyplot(fig)
-
-# -------------------------------
-# DOWNLOAD
-# -------------------------------
-st.markdown("---")
-st.subheader("📥 Export Results")
-
-csv = input_df.to_csv(index=False).encode('utf-8')
-
-st.download_button(
-    "Download Input Data",
-    csv,
-    "input_data.csv",
-    "text/csv"
-)
+        st.write(f"📌 Increasing CRM by +1 changes probability from **{base:.2f} → {improved:.2f}**")
 
 # -------------------------------
 # FOOTER
 # -------------------------------
 st.markdown("---")
-st.caption("Advanced AI System | ML + SEM + Scenario Intelligence")
+st.caption("AI Sales Intelligence System | Built for Strategic Decision-Making")
